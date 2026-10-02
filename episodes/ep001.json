@@ -1,0 +1,100 @@
+{
+  "id": "ep001",
+  "version": 1,
+  "title": "Milo and the Runaway Kite | A Funny Story About Telling the Truth",
+  "lesson": "Telling the truth takes courage, and saying sorry plus helping fix it makes things right.",
+  "description": "Milo borrows Luna's favourite kite without asking, and a big gust of wind blows it to the top of the tallest tree in Maple Hollow! Will Milo hide the truth, or find the courage to say sorry? A funny adventure about honesty, apologies and teamwork.",
+  "tags": ["kids cartoon", "stories for kids", "3d animation for kids", "honesty story for kids", "telling the truth", "moral stories for kids", "cartoon for kids", "kids animation", "maple hollow", "life lessons for kids"],
+  "thumbnail_text": "OH NO!",
+  "thumbnail_line": [0, 5],
+  "short_scene": 4,
+  "scenes": [
+    {
+      "title": "The Runaway Kite", "setting": "meadow", "time": "day", "characters": ["milo"], "props": ["big_tree@back", "kite@sky"],
+      "lines": [
+        {"who": "narrator", "text": "It was the windiest day of the year in Maple Hollow. Perfect kite weather!"},
+        {"who": "milo", "text": "Woo-hoo! Look at it go! Higher! Higher!", "action": "jump", "emotion": "excited"},
+        {"who": "narrator", "text": "There was just one tiny problem. This wasn't Milo's kite. It was Luna's. And Milo hadn't asked."},
+        {"who": "milo", "text": "She won't even notice. I'll just fly it for one minute... maybe two... okay, three!", "action": "shrug", "emotion": "silly"},
+        {"who": "narrator", "text": "Then the wind gave a great big WHOOSH."},
+        {"who": "milo", "text": "Whoa! No, no, no, kite! Come back! Not the tree! Anything but the giant tree!", "action": "surprised", "emotion": "scared"},
+        {"who": "milo", "text": "Oh no. It's stuck. It's really stuck. Luna's favourite kite is stuck at the top of the tallest tree in Maple Hollow.", "action": "sad", "emotion": "worried"}
+      ]
+    },
+    {
+      "title": "Bolt's Brilliant Plans", "setting": "meadow", "time": "day", "characters": ["pepper", "milo", "bolt"], "props": ["big_tree@back", "kite@sky"],
+      "lines": [
+        {"who": "pepper", "text": "Milo! Did you see that kite? It went up so fast! I bet I could jump that high. Probably. Maybe.", "action": "jump", "emotion": "excited"},
+        {"who": "bolt", "text": "Scanning. Scanning. Kite located. Altitude: very high. Chance of kite coming down by itself: zero point zero zero three percent.", "action": "think", "emotion": "thinking"},
+        {"who": "milo", "text": "Guys, you have to help me. It's Luna's kite. I borrowed it without asking.", "emotion": "worried"},
+        {"who": "pepper", "text": "Without asking? Uh-oh.", "action": "surprised", "emotion": "surprised"},
+        {"who": "bolt", "text": "Do not worry. I have three brilliant plans. Plan one: we ask the tree nicely to give it back.", "action": "point", "emotion": "happy"},
+        {"who": "milo", "text": "Bolt, trees can't hear.", "action": "shake"},
+        {"who": "bolt", "text": "Correct. Plan two: we wait ninety years for the tree to fall asleep.", "action": "nod", "emotion": "thinking"},
+        {"who": "pepper", "text": "Trees don't sleep either, Bolt!", "action": "laugh", "emotion": "silly"},
+        {"who": "bolt", "text": "Then plan three it is. We hide the evidence and say the wind did it.", "emotion": "proud"},
+        {"who": "narrator", "text": "Milo went very quiet. Plan three sounded easy. Maybe a little too easy."},
+        {"who": "milo", "text": "Well... the wind did do it. Kind of. Maybe Luna never has to know.", "action": "think", "emotion": "worried"},
+        {"who": "pepper", "text": "Hmm. I don't know, Milo. That feels a little wobbly.", "action": "shrug", "emotion": "worried"}
+      ]
+    },
+    {
+      "title": "Grandpa Shell's Snowball Story", "setting": "village", "time": "day", "characters": ["milo", "grandpa"], "props": ["bench@left"],
+      "lines": [
+        {"who": "narrator", "text": "Milo's tummy felt twisty all the way home. So he went to see Grandpa Shell."},
+        {"who": "grandpa", "text": "Well, hello there, young Milo! You look like a fox carrying a very heavy backpack.", "action": "wave", "emotion": "happy"},
+        {"who": "milo", "text": "I'm not carrying anything, Grandpa.", "action": "sad", "emotion": "sad"},
+        {"who": "grandpa", "text": "Oh, I think you are. A secret, perhaps? Secrets are the heaviest things in the world.", "action": "nod", "emotion": "thinking"},
+        {"who": "milo", "text": "I lost Luna's kite. I took it without asking. And now I kind of want to pretend it wasn't me.", "emotion": "worried"},
+        {"who": "grandpa", "text": "Ha! Let me tell you a story. When I was a young turtle, about a hundred years ago, I broke my mother's favourite teapot.", "action": "laugh", "emotion": "happy"},
+        {"who": "grandpa", "text": "I hid the pieces under my shell. Do you know how hard it is to walk with a teapot under your shell? Clink, clank, clink!", "action": "shrug", "emotion": "silly"},
+        {"who": "milo", "text": "Ha ha! Did she find out?", "action": "laugh", "emotion": "happy"},
+        {"who": "grandpa", "text": "On the very first day. But here's the funny thing. The worry was much worse than the truth. A secret is like a snowball, Milo. The longer you roll it, the bigger it gets.", "action": "nod", "emotion": "proud"},
+        {"who": "milo", "text": "So if I tell Luna now... the snowball stays small?", "action": "think", "emotion": "thinking"},
+        {"who": "grandpa", "text": "Exactly! And you know what's even better than saying sorry? Saying sorry, and then helping to fix it.", "action": "point", "emotion": "happy"}
+      ]
+    },
+    {
+      "title": "Telling Luna", "setting": "riverside", "time": "day", "characters": ["bolt", "milo", "luna", "pepper"], "props": ["book@front"],
+      "lines": [
+        {"who": "narrator", "text": "Milo found Luna reading by the river. His heart was going thump, thump, thump."},
+        {"who": "luna", "text": "Hi, Milo! Have you seen my red kite? I wanted to fly it today. It's so windy!", "action": "wave", "emotion": "happy"},
+        {"who": "milo", "text": "Luna, I have to tell you something. I took your kite without asking. And the wind blew it into the giant tree. I'm really, really sorry.", "emotion": "worried"},
+        {"who": "luna", "text": "Oh. My kite? My grandma made that kite for me.", "action": "sad", "emotion": "sad"},
+        {"who": "narrator", "text": "Luna was quiet for a moment. Milo waited. It was the longest moment ever."},
+        {"who": "luna", "text": "I'm a little sad. And next time, please ask me first.", "emotion": "sad"},
+        {"who": "milo", "text": "I will. I promise. And I want to help get it back. Even if it takes all day.", "action": "nod", "emotion": "worried"},
+        {"who": "luna", "text": "Thank you for telling me the truth, Milo. That was brave. Okay! Let's get my kite back. Together.", "emotion": "happy"},
+        {"who": "bolt", "text": "Teamwork mode: activated! Beep boop!", "action": "spin", "emotion": "excited"},
+        {"who": "pepper", "text": "Finally! Let's go!", "action": "jump", "emotion": "excited"}
+      ]
+    },
+    {
+      "title": "Operation Kite Rescue", "setting": "meadow", "time": "sunset", "characters": ["pepper", "milo", "luna", "bolt"], "props": ["big_tree@back", "kite@sky"],
+      "lines": [
+        {"who": "narrator", "text": "Back at the giant tree, the friends made a plan. A real plan, this time."},
+        {"who": "luna", "text": "I read about this! If Pepper jumps, and Milo holds the long stick, and Bolt reaches up high...", "action": "think", "emotion": "thinking"},
+        {"who": "bolt", "text": "My arms do not stretch. But I can stand very, very still. I am excellent at standing still.", "action": "point", "emotion": "proud"},
+        {"who": "pepper", "text": "And I'm excellent at jumping! On three. One, two, THREE!", "action": "jump", "emotion": "excited"},
+        {"who": "narrator", "text": "Pepper jumped. Milo reached. Bolt stood very, very still. And Luna flapped up to guide the stick."},
+        {"who": "milo", "text": "I've got it! I've got the string!", "action": "surprised", "emotion": "excited"},
+        {"who": "luna", "text": "You did it! We did it! My kite!", "action": "cheer", "emotion": "excited"},
+        {"who": "narrator", "text": "And down came the kite, safe and sound!", "everyone": "cheer", "emotion": "happy"}
+      ]
+    },
+    {
+      "title": "Flying Together", "setting": "meadow", "time": "sunset", "characters": ["grandpa", "pepper", "milo", "luna", "bolt"], "props": ["kite@sky"],
+      "lines": [
+        {"who": "narrator", "text": "That evening, the wind was just right. And this time, Milo asked first."},
+        {"who": "milo", "text": "Luna, may I please fly your kite with you?", "action": "wave", "emotion": "happy"},
+        {"who": "luna", "text": "Yes, you may! Let's fly it together.", "action": "nod", "emotion": "happy"},
+        {"who": "grandpa", "text": "Well, look at that. The snowball stayed small after all.", "action": "nod", "emotion": "proud"},
+        {"who": "milo", "text": "Telling the truth was scary. But it felt way better than hiding it.", "emotion": "proud"},
+        {"who": "pepper", "text": "Way better than walking around with a teapot under your shell!", "action": "laugh", "emotion": "silly"},
+        {"who": "bolt", "text": "Note to self: plan three was a bad plan. Deleting plan three. Beep. Gone forever.", "action": "think", "emotion": "thinking"},
+        {"who": "luna", "text": "Ha ha! Good idea, Bolt!", "action": "laugh", "emotion": "happy"},
+        {"who": "narrator", "text": "Being honest isn't always easy. But a brave sorry and a helping paw can fix almost anything. See you next time in Maple Hollow!", "everyone": "wave", "emotion": "happy"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+name: Publish
+# You label an episode ticket -> approved: Publisher bot schedules it on YouTube (or posts a manual-upload checklist)
+#                              -> redo: your comments become notes for the writer bot
+on:
+  issues: {types: [labeled]}
+concurrency: {group: publish}
+permissions: {contents: write, issues: write}
+env:
+  GH_TOKEN: ${{ github.token }}
+  N: ${{ github.event.issue.number }}
+  ISSUE_TITLE: ${{ github.event.issue.title }}
+
+jobs:
+  publish:
+    name: "🚀 Publish"
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🔎 Find review copy
+        id: rel
+        run: |
+          id=$(echo "$ISSUE_TITLE" | grep -o 'ep[0-9]\{3\}' | head -1)
+          tag=$(gh release list --limit 500 --json tagName -q '.[].tagName' | grep "^$id-v" | sort -V | tail -1)
+          echo "id=$id" >> "$GITHUB_OUTPUT"; echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          git config user.name studio-bot && git config user.email studio-bot@users.noreply.github.com
+          grep -qx "$id" docs/approved.txt 2>/dev/null || { echo "$id" >> docs/approved.txt; git add docs/approved.txt; git commit -qm "✅ Approved $id"; git pull -q --rebase; git push -q; }
+          gh release download "$tag" -D out
+      - name: 🚀 Upload to YouTube
+        if: vars.AUTO_UPLOAD == 'true'
+        env: {YT_TOKEN: '${{ secrets.YT_TOKEN }}'}
+        run: |
+          pip install -q google-api-python-client google-auth
+          r=$(python pipeline/youtube.py upload out)
+          gh issue comment "$N" --body "🚀 Scheduled on YouTube: https://youtu.be/$(jq -r .video <<<"$r") (goes public $(jq -r .publish_at <<<"$r")) · Short: https://youtu.be/$(jq -r .short <<<"$r")"
+          gh issue edit "$N" --add-label published --remove-label needs-review
+          gh issue close "$N"
+      - name: 📋 Manual upload checklist
+        if: vars.AUTO_UPLOAD != 'true'
+        env: {TAG: '${{ steps.rel.outputs.tag }}'}
+        run: |
+          python - > body.md <<'PY'
+          import json, os
+          m = json.load(open('out/metadata.json', encoding='utf-8'))
+          dl = f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/releases/download/{os.environ['TAG']}"
+          print(f"""### 📋 Ready to upload (auto-upload switches on after Google approves the API audit)
+          1. Download [episode.mp4]({dl}/episode.mp4), [thumbnail.jpg]({dl}/thumbnail.jpg), [captions.srt]({dl}/captions.srt), [short.mp4]({dl}/short.mp4)
+          2. YouTube Studio → **Create → Upload videos** → episode.mp4
+          3. Paste the title, description and tags below. Add the thumbnail. **Audience: Yes, it's made for kids.**
+          4. Subtitles → upload captions.srt (English). Visibility → **Schedule** for 17:00 UTC.
+          5. Upload short.mp4 the same way with the Short title. Then add the **published** label here.
+
+          **Title**
+          ```
+          {m['title']}
+          ```
+          **Description**
+          ```
+          {m['description']}
+          ```
+          **Tags**
+          ```
+          {', '.join(m['tags'])}
+          ```
+          **Short title**
+          ```
+          {m['short_title']}
+          ```""".replace('\n          ', '\n'))
+          PY
+          gh issue comment "$N" --body-file body.md
+          gh issue edit "$N" --add-label ready-to-upload --remove-label needs-review
+
+  redo:
+    name: "📝 Notes to writer"
+    if: github.event.label.name == 'redo'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          id=$(echo "$ISSUE_TITLE" | grep -o 'ep[0-9]\{3\}' | head -1)
+          mkdir -p feedback
+          { echo "Reviewer notes for $id. Revise episodes/$id.json to address them, keep the id, bump version, then delete this file:"; echo; gh issue view "$N" --json comments -q '.comments[] | select(.author.login != "github-actions") | "- " + .body'; } > "feedback/$id.md"
+          git config user.name studio-bot && git config user.email studio-bot@users.noreply.github.com
+          git add feedback && git commit -qm "📝 Review notes for $id" && git pull -q --rebase && git push -q
+          gh issue edit "$N" --remove-label needs-review
+          gh issue comment "$N" --body "📝 Sent your notes to the writer bot. The revised episode will appear here after the next writing run."

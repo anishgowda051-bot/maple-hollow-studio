@@ -1,0 +1,132 @@
+name: Produce
+# Voice bot -> Animator bots (parallel) -> Editor/QA bot -> review ticket.
+on:
+  push:
+    branches: [main, 'claude/**']
+    paths: ['episodes/**']
+  schedule: [{cron: '23 */6 * * *'}]  # catches anything a push missed
+  workflow_dispatch:
+concurrency: {group: produce}
+permissions: {contents: write, issues: write}
+env:
+  GH_TOKEN: ${{ github.token }}
+  BLENDER: blender-4.5.14-linux-x64
+
+jobs:
+  voice:
+    name: "🎙️ Voice"
+    runs-on: ubuntu-latest
+    outputs:
+      ep: ${{ steps.pick.outputs.ep }}
+      id: ${{ steps.pick.outputs.id }}
+      tag: ${{ steps.pick.outputs.tag }}
+      title: ${{ steps.pick.outputs.title }}
+      issue: ${{ steps.ticket.outputs.issue }}
+      chunks: ${{ steps.voice.outputs.chunks }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - name: 📥 Collect new scripts
+        run: |
+          git config user.name studio-bot && git config user.email studio-bot@users.noreply.github.com
+          if [ "$GITHUB_REF_NAME" != main ]; then git checkout main && git merge --no-edit "origin/$GITHUB_REF_NAME" && git push origin main; fi
+      - name: 🗂️ Pick next episode
+        id: pick
+        run: |
+          python pipeline/pick.py
+          if [ -n "$(git status --porcelain feedback)" ]; then git add feedback && git commit -qm "📝 Script problems for the writer" && git push origin HEAD:main; fi
+      - name: 🎫 Open review ticket
+        id: ticket
+        if: steps.pick.outputs.id
+        env: {ID: '${{ steps.pick.outputs.id }}', TITLE: '${{ steps.pick.outputs.title }}'}
+        run: |
+          n=$(gh issue list --state all --search "$ID in:title" --json number,title -q "map(select(.title | startswith(\"[$ID]\"))) | .[0].number // empty")
+          if [ -z "$n" ]; then
+            n=$(gh issue create --title "[$ID] $TITLE" --body "🎬 In production. The bots will post the review copy here." --label episode,rendering | grep -o '[0-9]*$')
+          else
+            gh issue reopen "$n" || true
+            gh issue edit "$n" --title "[$ID] $TITLE" --add-label rendering --remove-label needs-review,redo,failed
+          fi
+          echo "issue=$n" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        if: steps.pick.outputs.id
+        with: {path: ~/.cache/huggingface, key: kokoro-v1}
+      - name: 🎙️ Recording voices
+        id: voice
+        if: steps.pick.outputs.id
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq espeak-ng ffmpeg > /dev/null
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9.4" soundfile numpy
+          python pipeline/voice.py "${{ steps.pick.outputs.ep }}" work
+      - uses: actions/upload-artifact@v4
+        if: steps.pick.outputs.id
+        with: {name: voice, path: work/, retention-days: 3}
+
+  render:
+    name: "🎬 Animate"
+    needs: voice
+    if: needs.voice.outputs.id
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: {chunk: '${{ fromJson(needs.voice.outputs.chunks) }}'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/cache@v4
+        id: blender
+        with: {path: ~/blender, key: '${{ env.BLENDER }}'}
+      - name: 📦 Install Blender
+        if: steps.blender.outputs.cache-hit != 'true'
+        run: mkdir -p ~/blender && curl -sSL "https://download.blender.org/release/Blender4.5/$BLENDER.tar.xz" | tar -xJ -C ~/blender --strip-components=1
+      - uses: actions/download-artifact@v4
+        with: {name: voice, path: work}
+      - name: 🎬 Rendering frames
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends libxi6 libxkbcommon0 libsm6 libgl1 libegl1 libxrender1 libxxf86vm1 libxfixes3 > /dev/null
+          r() { RES=1280x720 SAMPLES=8 ~/blender/blender -b --python-exit-code 1 -P pipeline/render.py -- "${{ needs.voice.outputs.ep }}" work/timeline.json "$1" work/chunks | (grep -E "Append frame [0-9]*[05]0$|Error|Traceback" || true); }
+          r ${{ matrix.chunk }}
+          if [ "${{ matrix.chunk }}" = 0 ]; then r thumb; fi
+          ls -la work/chunks
+      - uses: actions/upload-artifact@v4
+        with: {name: 'chunk-${{ matrix.chunk }}', path: work/chunks/, retention-days: 3}
+
+  finish:
+    name: "✂️ Edit & QA"
+    needs: [voice, render]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/download-artifact@v4
+        with: {name: voice, path: work}
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'chunk-*', path: work/chunks, merge-multiple: true}
+      - name: ✂️ Editing, music & quality checks
+        env: {TAG: '${{ needs.voice.outputs.tag }}'}
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          pip install -q numpy soundfile pillow
+          python pipeline/finish.py "${{ needs.voice.outputs.ep }}" work
+      - name: 📦 Post review copy
+        env: {ID: '${{ needs.voice.outputs.id }}', TAG: '${{ needs.voice.outputs.tag }}', TITLE: '${{ needs.voice.outputs.title }}', N: '${{ needs.voice.outputs.issue }}'}
+        run: |
+          gh release delete "$TAG" -y --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" work/out/* --title "$TITLE" --notes "Review copy of $ID. See the episode ticket."
+          git config user.name studio-bot && git config user.email studio-bot@users.noreply.github.com
+          mkdir -p docs/thumbs && cp work/out/thumbnail.jpg "docs/thumbs/$ID.jpg"
+          git add docs/thumbs && git commit -qm "🖼️ Thumbnail $ID" && git pull -q --rebase && git push -q
+          gh issue edit "$N" --body-file work/review.md --add-label needs-review --remove-label rendering,failed
+          gh issue comment "$N" --body "👀 Ready for your review. Watch it, then add the **approved** label (or comment notes + add **redo**)."
+
+  report:
+    name: "🩺 Report failure"
+    needs: [voice, render, finish]
+    if: failure() && needs.voice.outputs.issue
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh issue edit "$N" -R "$GITHUB_REPOSITORY" --add-label failed --remove-label rendering
+          gh issue comment "$N" -R "$GITHUB_REPOSITORY" --body "⚠️ Production failed (attempt ${{ github.run_attempt }}): $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. The doctor bot retries once by itself. To retry later, remove the **failed** label."
+        env: {N: '${{ needs.voice.outputs.issue }}'}

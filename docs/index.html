@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maple Hollow Studio</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>">
+<style>
+:root{color-scheme:light;--bg:#f4f3ef;--surface-1:#fcfcfb;--surface-2:#efede7;--line:#e2e0d9;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#7a7974;
+--series-1:#2a78d6;--good:#0ca30c;--warning:#fab219;--critical:#d03b3b;--accent:#eb6834;--radius:14px}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){color-scheme:dark;--bg:#121211;--surface-1:#1a1a19;--surface-2:#242422;--line:#33332f;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#8f8e86;--series-1:#3987e5;--accent:#d95926}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#121211;--surface-1:#1a1a19;--surface-2:#242422;--line:#33332f;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#8f8e86;--series-1:#3987e5;--accent:#d95926}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text-primary);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+h1{font-size:22px;margin:0}h1 span{color:var(--accent)}
+h2{font-size:16px;margin:28px 0 10px;color:var(--text-secondary);font-weight:600;letter-spacing:.02em}
+.muted{color:var(--text-muted);font-size:13px}
+button,.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface-1);color:var(--text-primary);border-radius:999px;padding:6px 14px;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.btn:hover{border-color:var(--text-muted)}
+.grid{display:grid;gap:12px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.bots{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--surface-1);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;min-width:0}
+.kpi .v{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}.kpi .l{color:var(--text-secondary);font-size:13px}
+.bot .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bot .name{font-weight:650}.bot .now{margin:8px 0 10px;color:var(--text-secondary);font-size:13px;min-height:2.6em;overflow-wrap:anywhere}
+.bot .stats{display:flex;gap:16px;font-size:12px;color:var(--text-muted)}.bot .stats b{color:var(--text-primary);font-variant-numeric:tabular-nums}
+.pill{font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap;border:1px solid currentColor}
+.pill.run{color:var(--series-1)}.pill.ok{color:var(--good)}.pill.bad{color:var(--critical)}.pill.idle{color:var(--text-muted)}
+.pill.run::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;animation:p 1.2s infinite}
+@keyframes p{50%{opacity:.25}}
+.bar{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--series-1);border-radius:3px}
+.board{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.col h3{font-size:13px;margin:0 0 8px;color:var(--text-secondary)}
+.ep{display:block;background:var(--surface-2);border-radius:10px;padding:8px 10px;margin-bottom:8px;font-size:13px;color:var(--text-primary);text-decoration:none;overflow-wrap:anywhere}
+.ep:hover{outline:1px solid var(--line)}
+.review{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+video{width:100%;border-radius:10px;background:#000;aspect-ratio:16/9}
+.chart{position:relative}svg text{fill:var(--text-muted);font-size:11px}
+.tip{position:absolute;pointer-events:none;background:var(--surface-1);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+th{color:var(--text-secondary);font-weight:600}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.empty{color:var(--text-muted);font-size:13px;padding:6px 0}
+.note{border-left:3px solid var(--warning);padding:8px 12px;background:var(--surface-1);border-radius:8px;font-size:13px;margin-top:10px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div><h1>🦊 Maple Hollow <span>Studio</span></h1><div class="muted" id="sub">Loading…</div></div>
+  <div><button id="refresh">↻ Refresh</button> <button id="theme" aria-label="Toggle theme">◐</button> <a class="btn" id="repo" target="_blank" rel="noopener">GitHub</a></div>
+</header>
+
+<section class="grid kpis" id="kpis"></section>
+<div id="notes"></div>
+
+<h2>🤖 Bots: what they're doing right now</h2>
+<section class="grid bots" id="bots"></section>
+
+<h2 id="review">👀 Waiting for your review</h2>
+<section class="grid review" id="queue"></section>
+
+<h2>🗂️ Episode pipeline</h2>
+<section class="grid board" id="board"></section>
+
+<h2>📈 Channel performance</h2>
+<div class="card chart"><div class="muted" id="chartTitle">Daily views, last 28 days</div><div id="chart"></div><div class="tip" id="tip"></div></div>
+<div class="card scroll" style="margin-top:12px"><table id="videos"></table></div>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const params = new URLSearchParams(location.search);
+const REPO = params.get('repo') || `${location.hostname.split('.')[0]}/${location.pathname.split('/')[1]}`;
+const API = `https://api.github.com/repos/${REPO}`;
+const WRITER_CRON_UTC = [1, 30]; // keep in sync with the writer routine schedule
+$('#repo').href = `https://github.com/${REPO}`;
+
+const store = { get(k) { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} } };
+const theme = store.get('theme'); if (theme) document.documentElement.dataset.theme = theme;
+$('#theme').onclick = () => { const d = document.documentElement, dark = d.dataset.theme ? d.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  d.dataset.theme = dark ? 'light' : 'dark'; store.set('theme', d.dataset.theme); };
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ago = t => { if (!t) return '—'; const s = (Date.now() - new Date(t)) / 1000;
+  return s < 90 ? 'just now' : s < 5400 ? `${Math.round(s / 60)} min ago` : s < 129600 ? `${Math.round(s / 3600)} h ago` : `${Math.round(s / 86400)} d ago`; };
+const dur = s => s < 90 ? `${Math.round(s)}s` : s < 5400 ? `${Math.round(s / 60)}m` : `${(s / 3600).toFixed(1)}h`;
+const fmt = n => Intl.NumberFormat('en', { notation: n >= 10000 ? 'compact' : 'standard' }).format(n);
+async function gh(path) {
+  const r = await fetch(API + path, { headers: { Accept: 'application/vnd.github+json' } });
+  if (r.status === 403 || r.status === 429) throw new Error('GitHub rate limit reached (60 requests/hour without login). It resets within the hour.');
+  if (!r.ok) throw new Error(`GitHub API ${r.status} for ${path}`);
+  return r.json();
+}
+
+// jobs of finished runs never change -> cache them
+const jobCache = store.get('jobs') || {};
+async function jobs(run) {
+  if (jobCache[run.id]) return jobCache[run.id];
+  const j = (await gh(`/actions/runs/${run.id}/jobs?per_page=100`)).jobs.map(j => ({ name: j.name, status: j.status, conclusion: j.conclusion,
+    started: j.started_at, done: j.completed_at, step: (j.steps || []).find(s => s.status === 'in_progress')?.name }));
+  if (run.status === 'completed') { jobCache[run.id] = j; const ks = Object.keys(jobCache); if (ks.length > 40) delete jobCache[ks[0]]; store.set('jobs', jobCache); }
+  return j;
+}
+
+const BOTS = [
+  { key: 'writer', icon: '🖋️', name: 'Writer', role: 'Claude routine: writes & revises scripts daily' },
+  { key: 'voice', icon: '🎙️', name: 'Voice actor', role: 'Kokoro TTS voices + lip-sync timing', job: '🎙️ Voice' },
+  { key: 'anim', icon: '🎬', name: 'Animators', role: 'Blender render farm (up to 20 in parallel)', job: '🎬 Animate' },
+  { key: 'edit', icon: '✂️', name: 'Editor & QA', role: 'Music, mix, Short, thumbnail, checks', job: '✂️ Edit & QA' },
+  { key: 'pub', icon: '🚀', name: 'Publisher', role: 'Schedules approved episodes on YouTube', wf: 'Publish' },
+  { key: 'ana', icon: '📊', name: 'Analyst', role: 'Pulls YouTube stats every night', wf: 'Analytics' },
+  { key: 'doc', icon: '🩺', name: 'Doctor', role: 'Auto-retries anything that fails', wf: 'Doctor' },
+];
+
+function botCard(b, st) {
+  const pill = { run: 'Working', ok: '✓ Healthy', bad: '✕ Failed', idle: 'Idle' }[st.state];
+  return `<div class="card bot"><div class="top"><span class="name">${b.icon} ${b.name}</span><span class="pill ${st.state}">${pill}</span></div>
+    <div class="now">${esc(st.now || b.role)}${st.progress != null ? `<div class="bar"><i style="width:${st.progress}%"></i></div>` : ''}</div>
+    <div class="stats"><span>Last <b>${ago(st.last)}</b></span><span>Success <b>${st.rate ?? '—'}</b></span><span>Avg <b>${st.avg ? dur(st.avg) : '—'}</b></span></div></div>`;
+}
+
+function stats(list) { // list of {conclusion, secs}
+  const done = list.filter(x => x.conclusion && x.conclusion !== 'skipped' && x.conclusion !== 'cancelled');
+  if (!done.length) return {};
+  const ok = done.filter(x => x.conclusion === 'success');
+  return { rate: `${Math.round(100 * ok.length / done.length)}%`, avg: ok.length ? ok.reduce((a, x) => a + x.secs, 0) / ok.length : null, lastBad: done[0].conclusion !== 'success' };
+}
+const secs = (a, b) => (new Date(b) - new Date(a)) / 1000;
+
+async function render() {
+  $('#sub').textContent = 'Refreshing…';
+  try {
+    const [runsR, issues, commits, analytics] = await Promise.all([
+      gh('/actions/runs?per_page=100'), gh('/issues?state=all&labels=episode&per_page=100'),
+      gh('/commits?path=episodes&per_page=5'), fetch('analytics.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)]);
+    const runs = runsR.workflow_runs, by = n => runs.filter(r => r.name === n);
+    const produce = by('Produce');
+    const recent = [];
+    for (const r of produce.slice(0, 8)) recent.push({ run: r, jobs: await jobs(r) });
+    const st = {};
+    // production bots: per-job stats over the last few Produce runs
+    for (const b of BOTS.filter(b => b.job)) {
+      const js = recent.flatMap(x => x.jobs.filter(j => j.name.startsWith(b.job)).map(j => ({ ...j, run: x.run })));
+      const perRun = recent.map(x => { const mine = x.jobs.filter(j => j.name.startsWith(b.job)); if (!mine.length) return null;
+        const bad = mine.some(j => ['failure', 'timed_out'].includes(j.conclusion)), all = mine.every(j => j.status === 'completed');
+        return { conclusion: !all ? null : bad ? 'failure' : mine.some(j => j.conclusion === 'success') ? 'success' : 'skipped',
+          secs: all ? secs(mine.map(j => j.started).sort()[0], mine.map(j => j.done).sort().at(-1)) : 0, at: mine[0].started }; }).filter(Boolean);
+      const s = stats(perRun), active = js.filter(j => j.status !== 'completed' && j.run.status !== 'completed');
+      st[b.key] = { ...s, last: perRun[0]?.at, state: active.length ? 'run' : s.lastBad ? 'bad' : perRun.length ? 'ok' : 'idle' };
+      if (active.length) {
+        if (b.key === 'anim') {
+          const all = js.filter(j => j.run.id === active[0].run.id), done = all.filter(j => j.status === 'completed').length;
+          st[b.key].now = `Rendering ${active[0].run.display_title.slice(0, 40)}: ${done}/${all.length} chunks done, ${active.filter(j => j.status === 'in_progress').length} rendering now`;
+          st[b.key].progress = Math.round(100 * done / all.length);
+        } else st[b.key].now = active[0].status === 'queued' ? 'Waiting for a free machine…' : `Now: ${active[0].step || 'starting up'}`;
+      }
+    }
+    for (const b of BOTS.filter(b => b.wf)) {
+      const rs = by(b.wf).filter(r => r.conclusion !== 'skipped');
+      const s = stats(rs.slice(0, 20).map(r => ({ conclusion: r.conclusion, secs: secs(r.run_started_at, r.updated_at) })));
+      const live = rs.find(r => r.status !== 'completed');
+      st[b.key] = { ...s, last: rs[0]?.run_started_at, state: live ? 'run' : s.lastBad ? 'bad' : rs.length ? 'ok' : 'idle',
+        now: live ? 'Working on it…' : b.key === 'ana' && analytics ? `Stats as of ${ago(analytics.updated)}` : null };
+    }
+    const next = new Date(); next.setUTCHours(WRITER_CRON_UTC[0], WRITER_CRON_UTC[1], 0, 0); if (next < new Date()) next.setUTCDate(next.getUTCDate() + 1);
+    const lc = commits[0];
+    st.writer = { state: lc ? 'ok' : 'idle', last: lc?.commit.author.date,
+      now: lc ? `Last: “${lc.commit.message.split('\n')[0].slice(0, 70)}” · next run ${next.toLocaleString([], { weekday: 'short', hour: '2-digit', minute: '2-digit' })}` : null };
+    $('#bots').innerHTML = BOTS.map(b => botCard(b, st[b.key])).join('');
+
+    // episodes
+    const eps = issues.filter(i => !i.pull_request).map(i => ({ ...i, labels: i.labels.map(l => l.name) }));
+    const has = (i, l) => i.labels.includes(l);
+    const COLS = [['🎬 In production', i => has(i, 'rendering')], ['👀 Needs your review', i => has(i, 'needs-review')],
+      ['📝 Being rewritten', i => has(i, 'redo')], ['✅ Approved / to upload', i => (has(i, 'approved') || has(i, 'ready-to-upload')) && !has(i, 'published')],
+      ['📺 Published', i => has(i, 'published')], ['⚠️ Failed', i => has(i, 'failed')]];
+    $('#board').innerHTML = COLS.map(([t, f]) => { const xs = eps.filter(f);
+      return `<div class="card col"><h3>${t} · ${xs.length}</h3>${xs.map(i => `<a class="ep" href="${i.html_url}" target="_blank" rel="noopener">${esc(i.title)}</a>`).join('') || '<div class="empty">Nothing here</div>'}</div>`; }).join('');
+    const queue = eps.filter(i => has(i, 'needs-review'));
+    $('#queue').innerHTML = queue.map(i => { const tag = (i.body || '').match(/releases\/download\/([^/]+)\/episode\.mp4/)?.[1];
+      const src = tag && `https://github.com/${REPO}/releases/download/${tag}`;
+      return `<div class="card"><div class="name" style="font-weight:650;margin-bottom:8px">${esc(i.title)}</div>
+        ${src ? `<video controls preload="none" poster="thumbs/${esc(i.title.slice(1, 6))}.jpg" src="${src}/episode.mp4"></video>` : ''}
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="${i.html_url}" target="_blank" rel="noopener">Open ticket → approve / redo</a>
+        ${src ? `<a class="btn" href="${src}/short.mp4" target="_blank" rel="noopener">Short</a>` : ''}</div></div>`; }).join('')
+      || '<div class="card empty">Nothing waiting. New episodes show up here when the bots finish them.</div>';
+
+    // performance
+    const v = analytics?.videos || [], ch = analytics?.channel;
+    const long = v.filter(x => !x.short && x.views > 0), avgPct = long.length ? long.slice(0, 10).reduce((a, x) => a + x.avg_view_pct, 0) / Math.min(10, long.length) : null;
+    const k = [['Subscribers', ch ? fmt(ch.subs) : '—'], ['Total views', ch ? fmt(ch.views) : '—'], ['Videos on channel', ch ? ch.videos : '—'],
+      ['Avg % watched (last 10)', avgPct != null ? `${avgPct.toFixed(0)}%` : '—'], ['Waiting for review', queue.length], ['Episodes made', eps.length]];
+    $('#kpis').innerHTML = k.map(([l, x]) => `<div class="card kpi"><div class="v">${x}</div><div class="l">${l}</div></div>`).join('');
+    $('#notes').innerHTML = analytics ? '' : `<div class="note">YouTube isn't connected yet, so channel stats are empty. Follow step 2 in the README to connect it.</div>`;
+    drawChart(analytics?.daily || []);
+    $('#videos').innerHTML = `<thead><tr><th>Video</th><th>Published</th><th class="n">Views</th><th class="n">Likes</th><th class="n">Avg % watched</th><th class="n">Watch time</th></tr></thead><tbody>` +
+      (v.map(x => `<tr><td><a href="https://youtu.be/${x.id}" target="_blank" rel="noopener" style="color:inherit">${esc(x.title)}</a>${x.privacy !== 'public' ? ` <span class="muted">(${esc(x.privacy)})</span>` : ''}</td>
+        <td>${new Date(x.published).toLocaleDateString()}</td><td class="n">${fmt(x.views)}</td><td class="n">${fmt(x.likes)}</td><td class="n">${x.avg_view_pct ? x.avg_view_pct.toFixed(0) + '%' : '—'}</td><td class="n">${fmt(Math.round(x.minutes / 60))} h</td></tr>`).join('')
+      || '<tr><td colspan="6" class="empty">No videos on the channel yet.</td></tr>') + '</tbody>';
+    $('#sub').textContent = `Updated ${new Date().toLocaleTimeString()} · auto-refreshes every 5 minutes`;
+  } catch (e) { $('#sub').textContent = '⚠️ ' + e.message; }
+}
+
+function drawChart(rows) {
+  const el = $('#chart'), W = el.clientWidth || 800, H = 180, P = { l: 40, r: 8, t: 10, b: 24 };
+  if (!rows.length) { el.innerHTML = '<div class="empty">No data yet.</div>'; return; }
+  const max = Math.max(1, ...rows.map(r => r.views)), step = 10 ** Math.floor(Math.log10(max)), top = Math.ceil(max / step) * step;
+  const bw = (W - P.l - P.r) / rows.length, y = v => P.t + (H - P.t - P.b) * (1 - v / top);
+  const ticks = [0, top / 2, top].map(t => `<line x1="${P.l}" x2="${W - P.r}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)"/><text x="${P.l - 6}" y="${y(t) + 4}" text-anchor="end">${fmt(t)}</text>`).join('');
+  const bars = rows.map((r, i) => { const x = P.l + i * bw + 1, h = Math.max(0, y(0) - y(r.views));
+    return `<rect class="hit" data-i="${i}" x="${x - 1}" y="${P.t}" width="${bw}" height="${H - P.t - P.b}" fill="transparent"/>` +
+      (h ? `<path d="M${x},${y(0)}v${-(h - 4)}a4,4 0 0 1 4,-4h${Math.max(0, bw - 10)}a4,4 0 0 1 4,4v${h - 4}z" fill="var(--series-1)" pointer-events="none"/>` : ''); }).join('');
+  const labels = rows.map((r, i) => i % 7 === 0 ? `<text x="${P.l + i * bw + bw / 2}" y="${H - 6}" text-anchor="middle">${r.date.slice(5)}</text>` : '').join('');
+  el.innerHTML = `<svg width="${W}" height="${H}" role="img" aria-label="Daily views for the last 28 days">${ticks}${bars}${labels}</svg>`;
+  const tip = $('#tip');
+  el.querySelectorAll('.hit').forEach(h => { h.onmousemove = e => { const r = rows[h.dataset.i];
+      tip.innerHTML = `<b>${r.date}</b><br>${fmt(r.views)} views · ${fmt(Math.round(r.minutes))} min watched · +${r.subs} subs`;
+      tip.style.display = 'block'; const b = el.parentNode.getBoundingClientRect();
+      tip.style.left = Math.min(e.clientX - b.left + 12, b.width - 230) + 'px'; tip.style.top = (e.clientY - b.top - 10) + 'px'; };
+    h.onmouseleave = () => tip.style.display = 'none'; });
+}
+
+$('#refresh').onclick = render;
+render();
+setInterval(() => { if (document.visibilityState === 'visible') render(); }, 5 * 60 * 1000);
+</script>
+</body>
+</html>

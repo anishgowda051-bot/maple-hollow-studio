@@ -1,0 +1,18 @@
+name: Analytics
+on:
+  schedule: [{cron: '30 2 * * *'}]
+  workflow_dispatch:
+permissions: {contents: write}
+jobs:
+  stats:
+    name: "📊 Analyst"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 📊 Pulling channel stats
+        env: {YT_TOKEN: '${{ secrets.YT_TOKEN }}'}
+        run: |
+          if [ -n "$YT_TOKEN" ]; then pip install -q google-api-python-client google-auth && python pipeline/youtube.py stats docs/analytics.json; else echo "YouTube not connected yet (run: python pipeline/youtube.py auth client_secret.json)"; fi
+          date -u +%FT%TZ > docs/heartbeat.txt  # daily commit keeps scheduled bots alive (GitHub pauses idle repos after 60 days)
+          git config user.name studio-bot && git config user.email studio-bot@users.noreply.github.com
+          git add docs && git commit -qm "📊 Daily stats" && git pull -q --rebase && git push -q
