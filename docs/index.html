@@ -109,7 +109,7 @@ async function jobs(run) {
 const BOTS = [
   { key: 'writer', icon: '🖋️', name: 'Writer', role: 'Claude routine: writes & revises scripts daily' },
   { key: 'voice', icon: '🎙️', name: 'Voice actor', role: 'Kokoro TTS voices + lip-sync timing', job: '🎙️ Voice' },
-  { key: 'anim', icon: '🎬', name: 'Animators', role: 'Blender render farm (up to 20 in parallel)', job: '🎬 Animate' },
+  { key: 'anim', icon: '🎬', name: 'Animators', role: 'Blender render farm (4 machines in parallel)', job: '🎬 Animate' },
   { key: 'edit', icon: '✂️', name: 'Editor & QA', role: 'Music, mix, Short, thumbnail, checks', job: '✂️ Edit & QA' },
   { key: 'pub', icon: '🚀', name: 'Publisher', role: 'Schedules approved episodes on YouTube', wf: 'Publish' },
   { key: 'ana', icon: '📊', name: 'Analyst', role: 'Pulls YouTube stats every night', wf: 'Analytics' },
@@ -154,7 +154,8 @@ async function render() {
       if (active.length) {
         if (b.key === 'anim') {
           const all = js.filter(j => j.run.id === active[0].run.id), done = all.filter(j => j.status === 'completed').length;
-          st[b.key].now = `Rendering ${active[0].run.display_title.slice(0, 40)}: ${done}/${all.length} chunks done, ${active.filter(j => j.status === 'in_progress').length} rendering now`;
+          const ep = issues.find(i => i.labels.some(l => l.name === 'rendering'));
+          st[b.key].now = `${ep ? ep.title.split('|')[0] : 'Episode'}: ${done}/${all.length} chunks done, ${active.filter(j => j.status === 'in_progress').length} rendering now`;
           st[b.key].progress = Math.round(100 * done / all.length);
         } else st[b.key].now = active[0].status === 'queued' ? 'Waiting for a free machine…' : `Now: ${active[0].step || 'starting up'}`;
       }
