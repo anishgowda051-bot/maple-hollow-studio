@@ -1,0 +1,96 @@
+{
+  "id": "ep002",
+  "version": 1,
+  "title": "Pepper and the Great Sandcastle Contest | Being a Good Sport",
+  "lesson": "Losing feels bad for a minute, but being a good sport keeps your friends and makes the fun last.",
+  "description": "Pepper has trained for days to win Grandpa Shell's Great Sandcastle Contest. But when the tallest tower on the beach goes FLUMP and Bolt wins with a first-ever sandcastle, Pepper is NOT happy. Can a hundred-year-old story about a turtle and a hare help Pepper be a good sport? A funny beach adventure about winning, losing and friendship.",
+  "tags": ["kids cartoon", "stories for kids", "3d animation for kids", "good sport story for kids", "winning and losing", "sandcastle", "moral stories for kids", "cartoon for kids", "maple hollow", "life lessons for kids"],
+  "thumbnail_text": "NOT FAIR!",
+  "thumbnail_line": [2, 8],
+  "short_scene": 2,
+  "scenes": [
+    {
+      "title": "Ten Seconds Left!", "setting": "riverside", "time": "day", "characters": ["pepper", "bolt"], "props": ["sandcastle@center", "boat@back"],
+      "lines": [
+        {"who": "pepper", "text": "Ten seconds left! Faster, paws, faster! Tower, done! Wall, done! Flag, done! I am the sandcastle champion!", "action": "jump", "emotion": "excited"},
+        {"who": "narrator", "text": "Then a little boat floated past. It made a little wave. SPLOOSH."},
+        {"who": "pepper", "text": "Nooo! My castle! It was beautiful! It had a door!", "action": "surprised", "emotion": "surprised"},
+        {"who": "narrator", "text": "Pepper was practicing. Tomorrow was Grandpa Shell's Great Sandcastle Contest. And Pepper had a plan: win."},
+        {"who": "bolt", "text": "Hello, Pepper. Why are you hugging a pile of wet sand?", "action": "wave", "emotion": "neutral"},
+        {"who": "pepper", "text": "It was a castle, Bolt. A champion castle. Are you entering the contest too?", "action": "sad", "emotion": "sad"},
+        {"who": "bolt", "text": "Yes. I have never built a sandcastle. I have never built anything with sand. I once built a sandwich. It was mostly sand.", "action": "nod", "emotion": "happy"},
+        {"who": "pepper", "text": "Ha! Then this is going to be easy!", "action": "laugh", "emotion": "silly"}
+      ]
+    },
+    {
+      "title": "On Your Marks, Get Set, Dig!", "setting": "beach", "time": "day", "characters": ["milo", "luna", "grandpa", "pepper", "bolt"], "props": ["trophy@center", "sign@back"],
+      "lines": [
+        {"who": "grandpa", "text": "Welcome, builders! You have one hour. The best castle wins this shiny trophy. I made it myself. It's a cup with a shell on.", "action": "point", "emotion": "proud"},
+        {"who": "pepper", "text": "On three! One, two, THREE!", "action": "jump", "emotion": "excited"},
+        {"who": "narrator", "text": "Pepper dug like a rocket. Sand flew everywhere. WHOOSH, WHOOSH, WHOOSH!"},
+        {"who": "luna", "text": "Milo, I made a plan. A map of our castle. Twelve rooms, two towers, and a library.", "action": "think", "emotion": "thinking"},
+        {"who": "milo", "text": "Great! I already started the moat. A moat is the water ditch around a castle. Mine is... very big.", "action": "shrug", "emotion": "silly"},
+        {"who": "luna", "text": "Milo! That's not a moat! That's a swimming pool for crabs!", "action": "laugh", "emotion": "surprised"},
+        {"who": "narrator", "text": "And Bolt? Bolt moved very slowly. Pat. Pat. Pat. One tiny scoop at a time."},
+        {"who": "bolt", "text": "Scoop. Wet. Pat. Wait. Scoop. Wet. Pat. Wait. This is relaxing. Beep.", "action": "nod", "emotion": "happy"}
+      ]
+    },
+    {
+      "title": "The Tallest Tower Ever", "setting": "beach", "time": "day", "characters": ["milo", "luna", "grandpa", "pepper", "bolt"], "props": ["trophy@center", "sandcastle@right"],
+      "lines": [
+        {"who": "pepper", "text": "Look at my tower! It's the tallest tower in the history of towers! It's taller than Milo!", "action": "cheer", "emotion": "proud"},
+        {"who": "luna", "text": "Pepper, wait! That sand looks very dry. I read about this! Wet sand sticks together. The water works like glue between the grains.", "action": "point", "emotion": "worried"},
+        {"who": "pepper", "text": "No time for water! Champions don't wait!", "action": "shake", "emotion": "excited"},
+        {"who": "narrator", "text": "The tower wobbled to the left. It wobbled to the right. And then... FLUMP."},
+        {"who": "pepper", "text": "My tower! It turned into a hill! A very sad hill!", "action": "surprised", "emotion": "surprised"},
+        {"who": "grandpa", "text": "Time is up! Now, let me look at every castle very carefully.", "action": "think", "emotion": "thinking"},
+        {"who": "narrator", "text": "Grandpa Shell looked for a long time. A very long time. Milo's moat dried up. Twice."},
+        {"who": "grandpa", "text": "The winner is... Bolt! For this lovely castle shaped like a turtle. With little shell windows!", "action": "cheer", "emotion": "happy"},
+        {"who": "pepper", "text": "WHAT? NOT FAIR! Bolt has never even built a sandcastle! I want a rematch! Best of fifty!", "action": "surprised", "emotion": "angry"},
+        {"who": "narrator", "text": "And Pepper stomped away, leaving tiny angry footprints all along the beach."}
+      ]
+    },
+    {
+      "title": "Congratu-GRRR", "setting": "village", "time": "sunset", "characters": ["pepper", "grandpa"], "props": ["house@back", "bench@left"],
+      "lines": [
+        {"who": "pepper", "text": "Okay. I can do this. I can say it. Congratulations, Bolt. Congratu... GRRR!", "action": "shake", "emotion": "angry"},
+        {"who": "grandpa", "text": "Hello, Pepper. I came as fast as I could. I left the beach at lunchtime.", "action": "wave", "emotion": "happy"},
+        {"who": "pepper", "text": "Grandpa, I trained so hard. And Bolt just patted some sand and won. Losing feels terrible!", "action": "sad", "emotion": "sad"},
+        {"who": "grandpa", "text": "I know that feeling. A hundred years ago, I ran a race against a hare. You may know that story.", "action": "nod", "emotion": "thinking"},
+        {"who": "pepper", "text": "Yes! The turtle goes slow and steady, and wins!", "action": "nod", "emotion": "excited"},
+        {"who": "grandpa", "text": "Not in my race. The hare won. By a lot. I was still at the start line, tying my shoes.", "action": "laugh", "emotion": "silly"},
+        {"who": "pepper", "text": "Ha ha! Turtles don't even wear shoes!", "action": "laugh", "emotion": "happy"},
+        {"who": "grandpa", "text": "I was so grumpy, I went home and sulked. And I missed the picnic after the race. With my best friend. The hare.", "action": "shrug", "emotion": "sad"},
+        {"who": "pepper", "text": "Hmm. So the losing wasn't the worst part?", "action": "think", "emotion": "thinking"},
+        {"who": "grandpa", "text": "That is a very good question. I think you can find the answer yourself.", "action": "point", "emotion": "proud"}
+      ]
+    },
+    {
+      "title": "Forty-One Percent", "setting": "beach", "time": "sunset", "characters": ["pepper", "bolt"], "props": ["trophy@front", "sandcastle@right"],
+      "lines": [
+        {"who": "narrator", "text": "Pepper ran back to the beach. Bolt was sitting alone, holding the shiny trophy."},
+        {"who": "bolt", "text": "Hello, Pepper. I won. Winning should feel one hundred percent good. But it feels forty-one percent good.", "action": "sad", "emotion": "sad"},
+        {"who": "pepper", "text": "Why only forty-one?", "action": "think", "emotion": "worried"},
+        {"who": "bolt", "text": "Because my friend stomped away. Fifty-nine percent of the fun stomped away too.", "emotion": "sad"},
+        {"who": "narrator", "text": "Pepper took a big breath. This was the hardest race of the day."},
+        {"who": "pepper", "text": "Bolt, I'm sorry I stomped. You won fair and square. Your castle is really good. The little shell windows are genius!", "action": "nod", "emotion": "happy"},
+        {"who": "bolt", "text": "Checking happiness. Forty-one... seventy... one hundred percent! Beep boop!", "action": "spin", "emotion": "excited"},
+        {"who": "pepper", "text": "Will you teach me how you did it?", "action": "point", "emotion": "excited"},
+        {"who": "bolt", "text": "Yes. Step one: use wet sand. Step two: be patient. Step three: I do not have a step three. I just like turtles.", "action": "nod", "emotion": "proud"}
+      ]
+    },
+    {
+      "title": "The Friendship Castle", "setting": "beach", "time": "night", "characters": ["milo", "luna", "pepper", "bolt", "grandpa"], "props": ["sandcastle@center", "lantern@left", "lantern@right"],
+      "lines": [
+        {"who": "narrator", "text": "That evening, everyone built one giant castle together. Pepper used wet sand this time. And waited. A little."},
+        {"who": "luna", "text": "It has twelve rooms, two towers, and a library! My plan worked!", "action": "cheer", "emotion": "excited"},
+        {"who": "milo", "text": "And the crabs still have their swimming pool!", "action": "laugh", "emotion": "silly"},
+        {"who": "grandpa", "text": "Well, look at that. Nobody went home grumpy. Nobody missed the picnic.", "action": "nod", "emotion": "proud"},
+        {"who": "pepper", "text": "Losing feels bad for a minute. But stomping away feels bad all day. Next time, I'll say well done first.", "emotion": "proud"},
+        {"who": "bolt", "text": "Next contest: who can be the best sport. On three.", "action": "point", "emotion": "happy"},
+        {"who": "pepper", "text": "Oh, I am SO going to win that one!", "action": "jump", "emotion": "silly"},
+        {"who": "narrator", "text": "Winning is fun, and losing is hard. But a good sport always has friends to play with. See you next time in Maple Hollow!", "everyone": "wave", "emotion": "happy"}
+      ]
+    }
+  ]
+}
