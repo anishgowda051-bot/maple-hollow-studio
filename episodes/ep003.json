@@ -1,0 +1,99 @@
+{
+  "id": "ep003",
+  "version": 1,
+  "title": "Detective Bolt and the Missing Smile | Thinking About How Others Feel",
+  "lesson": "Before you laugh or try to fix things, stop and ask: how would they feel? Then listen.",
+  "description": "Luna's balloon rocket goes PFFFBBBT the day before Science Day, and everyone laughs. Later, Luna has not shared a single fun fact all day! Detective Bolt opens the case of the missing smile, but the clues lead somewhere he never expected. A funny mystery about empathy, saying sorry and trying again.",
+  "tags": ["kids cartoon", "stories for kids", "3d animation for kids", "empathy for kids", "how others feel", "mystery for kids", "moral stories for kids", "kids animation", "maple hollow", "life lessons for kids"],
+  "thumbnail_text": "IT WAS ME?!",
+  "thumbnail_line": [3, 5],
+  "short_scene": 1,
+  "scenes": [
+    {
+      "title": "PFFFBBBT!", "setting": "village", "time": "day", "characters": ["milo", "pepper", "luna", "bolt", "grandpa"], "props": ["balloon@sky", "sign@back"],
+      "lines": [
+        {"who": "luna", "text": "Three, two, one... launch!", "action": "point", "emotion": "excited"},
+        {"who": "narrator", "text": "PFFFBBBT! Luna's balloon rocket zoomed up, flipped over, and spun around and around and around."},
+        {"who": "milo", "text": "Whoa! It's doing loop-the-loops!", "action": "surprised", "emotion": "surprised"},
+        {"who": "narrator", "text": "Then it landed, very gently, right on top of Grandpa Shell."},
+        {"who": "grandpa", "text": "Oh! A visitor. Hello, little balloon. Would you like some tea?", "action": "wave", "emotion": "silly"},
+        {"who": "narrator", "text": "Everybody laughed. And Bolt laughed the loudest of all."},
+        {"who": "bolt", "text": "Ha. Ha. Ha. PFFFBBBT! Play it again! Rocket landing on a turtle! Best science ever!", "action": "laugh", "emotion": "silly"},
+        {"who": "luna", "text": "Ha... ha. Yes. Very funny. I have to go now.", "emotion": "sad"},
+        {"who": "narrator", "text": "Science Day was tomorrow. Everyone laughed. Well... almost everyone."}
+      ]
+    },
+    {
+      "title": "There Are Different Fines?", "setting": "meadow", "time": "day", "characters": ["pepper", "bolt", "milo"], "props": ["bush@left", "tree@right"],
+      "lines": [
+        {"who": "bolt", "text": "Detective Bolt reporting. We have a mystery. Luna has not said one single fun fact today.", "action": "point", "emotion": "thinking"},
+        {"who": "pepper", "text": "Not one? She usually says a fact every five minutes. Even in her sleep!", "action": "surprised", "emotion": "surprised"},
+        {"who": "bolt", "text": "I asked her what was wrong. She said, quote, I'm fine. So she is fine. Case closed. Beep.", "action": "nod", "emotion": "proud"},
+        {"who": "milo", "text": "Wait. How did she say it?", "action": "think", "emotion": "thinking"},
+        {"who": "bolt", "text": "I recorded it. Playing now. I'm... fine.", "action": "sad", "emotion": "sad"},
+        {"who": "milo", "text": "Uh-oh. That is not a fine fine. That is a not-fine fine.", "action": "shake", "emotion": "worried"},
+        {"who": "bolt", "text": "There are different fines? Nobody told me! My instruction book has zero pages about this!", "action": "spin", "emotion": "surprised"},
+        {"who": "pepper", "text": "Sometimes words say one thing, but a face says another. You have to look at the face. And the voice.", "action": "point", "emotion": "happy"},
+        {"who": "bolt", "text": "Face, voice, words. Three clues. This case is harder than I computed. I will cheer her up with two plans.", "action": "think", "emotion": "thinking"}
+      ]
+    },
+    {
+      "title": "Plan One, Plan Two", "setting": "riverside", "time": "day", "characters": ["bolt", "luna"], "props": ["book@front", "rock@right"],
+      "lines": [
+        {"who": "narrator", "text": "Luna was sitting by the river. Her book was open. But she was not reading it."},
+        {"who": "bolt", "text": "Hello, Luna. Plan one: make Luna laugh. Here is the funniest sound I know. PFFFBBBT!", "action": "dance", "emotion": "silly"},
+        {"who": "narrator", "text": "Luna did not laugh. Her feathers drooped even lower."},
+        {"who": "bolt", "text": "Strange. That sound worked this morning. Plan two: a present. I found you a very good rock.", "action": "point", "emotion": "happy"},
+        {"who": "luna", "text": "That is... a very good rock. Thank you, Bolt. But I want to be alone right now.", "action": "nod", "emotion": "sad"},
+        {"who": "bolt", "text": "Plan one failed. Plan two failed. I have no plan three. This has never happened before.", "action": "shrug", "emotion": "worried"}
+      ]
+    },
+    {
+      "title": "The Evidence", "setting": "meadow", "time": "sunset", "characters": ["pepper", "bolt", "milo"], "props": ["tree@right"],
+      "lines": [
+        {"who": "narrator", "text": "Back in the meadow, Detective Bolt did what detectives do. He looked at the evidence again."},
+        {"who": "bolt", "text": "Replaying this morning. Slow motion. Look at Luna's face when the rocket fell.", "action": "think", "emotion": "thinking"},
+        {"who": "pepper", "text": "Her feathers went all flat. Like a sad pancake. She worked on that rocket for a whole week.", "emotion": "sad"},
+        {"who": "milo", "text": "And then we all laughed. Really loud.", "action": "sad", "emotion": "worried"},
+        {"who": "bolt", "text": "Zooming in on the loudest laugh. Who is that? It is a small robot. A very shiny small robot.", "action": "point", "emotion": "thinking"},
+        {"who": "bolt", "text": "The detective found the culprit. A culprit is the one who did it. And the culprit is... ME?!", "action": "surprised", "emotion": "surprised"},
+        {"who": "milo", "text": "We laughed too, Bolt. We didn't mean to be mean. It just looked funny.", "action": "shrug", "emotion": "worried"},
+        {"who": "bolt", "text": "Running a test. What if I built something for a week, and it went wrong, and my friends laughed?", "action": "think", "emotion": "thinking"},
+        {"who": "bolt", "text": "Result: my circuits feel heavy. Like a backpack full of rocks. Very good rocks. But heavy.", "action": "sad", "emotion": "sad"},
+        {"who": "pepper", "text": "That's it! That's how Luna feels! You figured it out by putting yourself in her place!", "action": "jump", "emotion": "excited"},
+        {"who": "bolt", "text": "New plan. Not a plan to make her laugh. A plan to say sorry. And then listen.", "action": "nod", "emotion": "proud"}
+      ]
+    },
+    {
+      "title": "Under Luna's Tree", "setting": "forest", "time": "night", "characters": ["grandpa", "milo", "bolt", "luna", "pepper"], "props": ["big_tree@back", "lantern@left"],
+      "lines": [
+        {"who": "narrator", "text": "Grandpa Shell walked the friends to Luna's tree, slow and steady, holding a lantern. Owls like to stay up late."},
+        {"who": "bolt", "text": "Luna. This morning I laughed the loudest. I did not think about how you felt. I am sorry.", "emotion": "sad"},
+        {"who": "milo", "text": "Me too, Luna. We all laughed. We're really sorry.", "action": "nod", "emotion": "worried"},
+        {"who": "luna", "text": "Thank you. I worked so hard on it. And tomorrow the whole village will watch. What if they laugh again?", "emotion": "worried"},
+        {"who": "narrator", "text": "Bolt wanted to say ten plans at once. But this time, he just listened."},
+        {"who": "bolt", "text": "That sounds really hard. Being scared about tomorrow. Do you want help? Only if you want it.", "action": "nod", "emotion": "happy"},
+        {"who": "luna", "text": "Yes. I think I do. I read about this! The balloon needs a string to follow, through a straw. My string came untied.", "action": "think", "emotion": "thinking"},
+        {"who": "pepper", "text": "She's saying facts again! The smile is coming back!", "action": "jump", "emotion": "excited"},
+        {"who": "grandpa", "text": "Well, look at that. A detective who solves mysteries with his ears. The best kind.", "action": "laugh", "emotion": "proud"}
+      ]
+    },
+    {
+      "title": "Science Day", "setting": "village", "time": "day", "characters": ["milo", "pepper", "luna", "bolt", "grandpa"], "props": ["balloon@center", "sign@back"],
+      "lines": [
+        {"who": "narrator", "text": "The next day, the string was tied tight. Milo held one end. Pepper held the other."},
+        {"who": "luna", "text": "Air rushes out the back of the balloon, so the balloon zooms forward. Let's see it!", "action": "point", "emotion": "excited"},
+        {"who": "pepper", "text": "On three! One, two, THREE!", "action": "jump", "emotion": "excited"},
+        {"who": "narrator", "text": "ZOOOOM! The balloon rocket flew straight along the string, all the way across the square."},
+        {"who": "narrator", "text": "And this time, everybody cheered. Even Luna.", "everyone": "cheer", "emotion": "happy"},
+        {"who": "bolt", "text": "Case closed. The best detective tool is not a magnifying glass. It is asking: how would they feel?", "action": "nod", "emotion": "proud"},
+        {"who": "luna", "text": "Thanks, Bolt. And you can keep the very good rock. It can be our lucky rock.", "emotion": "happy"},
+        {"who": "bolt", "text": "Question. Is it okay to laugh at PFFFBBBT now?", "action": "think", "emotion": "thinking"},
+        {"who": "luna", "text": "Now? Yes! Because now it's funny for everyone!", "action": "laugh", "emotion": "happy"},
+        {"who": "narrator", "text": "PFFFBBBT! The balloon came loose, zipped back, and landed gently on Grandpa Shell. Again."},
+        {"who": "grandpa", "text": "Oh, you're back! I saved you some tea.", "action": "laugh", "emotion": "silly"},
+        {"who": "narrator", "text": "When a friend feels sad, try standing in their shoes, then listen with your heart. See you next time in Maple Hollow!", "everyone": "wave", "emotion": "happy"}
+      ]
+    }
+  ]
+}
