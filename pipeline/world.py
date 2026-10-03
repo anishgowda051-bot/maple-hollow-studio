@@ -216,7 +216,7 @@ SETTINGS = {
 }
 TIMES = {  # horizon, zenith, sun color, sun strength, sun elevation (deg), world strength
     'day': ('#A8DCFF', '#3D8BF2', '#FFF4E0', 3.2, 50, 0.9),
-    'sunset': ('#FFB37A', '#7357D9', '#FFB070', 2.6, 14, 0.7),
+    'sunset': ('#FFB37A', '#7357D9', '#FFB070', 3.0, 24, 0.95),
     'night': ('#2B3A6B', '#0B1030', '#AFC4FF', 0.9, 40, 0.35),
 }
 

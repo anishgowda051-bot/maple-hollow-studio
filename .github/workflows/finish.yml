@@ -26,9 +26,10 @@ jobs:
         with: {name: voice, path: work, run-id: '${{ env.RUN }}', github-token: '${{ github.token }}'}
       - uses: actions/download-artifact@v4
         with: {pattern: 'chunk-*', path: work/chunks, merge-multiple: true, run-id: '${{ env.RUN }}', github-token: '${{ github.token }}'}
+      - name: 📄 Read episode
+        run: python3 -c "import json;e=json.load(open('episodes/$ID.json',encoding='utf-8'));print(f\"TAG={e['id']}-v{e['version']}\");print('TITLE='+e['title'])" >> "$GITHUB_ENV"
       - name: ✂️ Editing, music & quality checks
         run: |
-          python3 -c "import json;e=json.load(open('episodes/$ID.json',encoding='utf-8'));print(f\"TAG={e['id']}-v{e['version']}\");print('TITLE='+e['title'])" >> "$GITHUB_ENV"
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
           pip install -q numpy soundfile pillow
           python pipeline/finish.py "episodes/$ID.json" work
