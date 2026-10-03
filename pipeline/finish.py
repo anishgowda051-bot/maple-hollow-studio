@@ -1,5 +1,5 @@
 """Editor + QA bot: chunks -> final 1080p episode with music, thumbnail, Short, metadata, QA report.
-Usage: python pipeline/finish.py episodes/ep001.json work/   (expects work/chunks/*.mp4, work/thumb.png, voice outputs)"""
+Usage: python pipeline/finish.py episodes/ep001.json work/   (expects work/chunks/*.mp4 + thumb.png, voice outputs)"""
 import glob, json, os, random, re, shutil, subprocess, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
@@ -121,7 +121,7 @@ def main(ep_path, work):
        '-vf', f"crop=ih*9/16:ih,scale=1080:1920:flags=lanczos,subtitles={work}/subs.srt:fontsdir={FONTS}:force_style='{style}'",
        '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', f'{out}/short.mp4')
 
-    thumbnail(f'{work}/thumb.png', ep['thumbnail_text'], f'{out}/thumbnail.jpg')
+    thumbnail(f'{work}/chunks/thumb.png', ep['thumbnail_text'], f'{out}/thumbnail.jpg')
     shutil.copy(f'{work}/subs.srt', f'{out}/captions.srt')
 
     starts = [(sc['start'] - 1) / fps for sc in tl['scenes']]

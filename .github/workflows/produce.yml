@@ -6,7 +6,6 @@ on:
     paths: ['episodes/**']
   schedule: [{cron: '23 */6 * * *'}]  # catches anything a push missed
   workflow_dispatch:
-concurrency: {group: produce}
 permissions: {contents: write, issues: write}
 env:
   GH_TOKEN: ${{ github.token }}
@@ -124,7 +123,7 @@ jobs:
   report:
     name: "🩺 Report failure"
     needs: [voice, render, finish]
-    if: failure() && needs.voice.outputs.issue
+    if: (failure() || cancelled()) && needs.voice.outputs.issue
     runs-on: ubuntu-latest
     steps:
       - run: |
