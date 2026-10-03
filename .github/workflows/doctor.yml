@@ -2,7 +2,7 @@ name: Doctor
 # Self-healing: any bot run that fails gets one automatic retry of its failed jobs.
 on:
   workflow_run:
-    workflows: [Produce, Publish, Analytics]
+    workflows: [Produce, Finish, Publish, Analytics]
     types: [completed]
 permissions: {actions: write}
 jobs:

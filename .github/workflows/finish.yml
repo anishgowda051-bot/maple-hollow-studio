@@ -1,0 +1,44 @@
+name: Finish
+# Editor & QA bot. Called by Produce; also runnable by hand to re-assemble an already-rendered episode:
+#   gh workflow run finish.yml -f episode=ep001 -f run_id=<Produce run id that rendered it>
+on:
+  workflow_call:
+    inputs:
+      episode: {type: string, required: true}
+  workflow_dispatch:
+    inputs:
+      episode: {description: 'Episode id, e.g. ep001', required: true}
+      run_id: {description: 'Produce run that rendered it', required: true}
+permissions: {contents: write, issues: write, actions: read}
+
+jobs:
+  finish:
+    name: "✂️ Edit & QA"
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ID: ${{ inputs.episode }}
+      RUN: ${{ inputs.run_id || github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/download-artifact@v4
+        with: {name: voice, path: work, run-id: '${{ env.RUN }}', github-token: '${{ github.token }}'}
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'chunk-*', path: work/chunks, merge-multiple: true, run-id: '${{ env.RUN }}', github-token: '${{ github.token }}'}
+      - name: ✂️ Editing, music & quality checks
+        run: |
+          python3 -c "import json;e=json.load(open('episodes/$ID.json',encoding='utf-8'));print(f\"TAG={e['id']}-v{e['version']}\");print('TITLE='+e['title'])" >> "$GITHUB_ENV"
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          pip install -q numpy soundfile pillow
+          python pipeline/finish.py "episodes/$ID.json" work
+      - name: 📦 Post review copy
+        run: |
+          N=$(gh issue list --state all --search "$ID in:title" --json number,title -q "map(select(.title | startswith(\"[$ID]\"))) | .[0].number // empty")
+          gh release delete "$TAG" -y --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" work/out/* --title "$TITLE" --notes "Review copy of $ID. See the episode ticket."
+          git config user.name studio-bot && git config user.email studio-bot@users.noreply.github.com
+          mkdir -p docs/thumbs && cp work/out/thumbnail.jpg "docs/thumbs/$ID.jpg"
+          git add docs/thumbs && git commit -qm "🖼️ Thumbnail $ID" && git pull -q --rebase && git push -q
+          gh issue edit "$N" --body-file work/review.md --add-label needs-review --remove-label rendering,failed
+          gh issue comment "$N" --body "👀 Ready for your review. Watch it, then add the **approved** label (or comment notes + add **redo**)."

@@ -6,7 +6,7 @@ on:
     paths: ['episodes/**']
   schedule: [{cron: '23 */6 * * *'}]  # catches anything a push missed
   workflow_dispatch:
-permissions: {contents: write, issues: write}
+permissions: {contents: write, issues: write, actions: read}
 env:
   GH_TOKEN: ${{ github.token }}
   BLENDER: blender-4.5.14-linux-x64
@@ -95,30 +95,8 @@ jobs:
   finish:
     name: "✂️ Edit & QA"
     needs: [voice, render]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: {ref: main}
-      - uses: actions/download-artifact@v4
-        with: {name: voice, path: work}
-      - uses: actions/download-artifact@v4
-        with: {pattern: 'chunk-*', path: work/chunks, merge-multiple: true}
-      - name: ✂️ Editing, music & quality checks
-        env: {TAG: '${{ needs.voice.outputs.tag }}'}
-        run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
-          pip install -q numpy soundfile pillow
-          python pipeline/finish.py "${{ needs.voice.outputs.ep }}" work
-      - name: 📦 Post review copy
-        env: {ID: '${{ needs.voice.outputs.id }}', TAG: '${{ needs.voice.outputs.tag }}', TITLE: '${{ needs.voice.outputs.title }}', N: '${{ needs.voice.outputs.issue }}'}
-        run: |
-          gh release delete "$TAG" -y --cleanup-tag 2>/dev/null || true
-          gh release create "$TAG" work/out/* --title "$TITLE" --notes "Review copy of $ID. See the episode ticket."
-          git config user.name studio-bot && git config user.email studio-bot@users.noreply.github.com
-          mkdir -p docs/thumbs && cp work/out/thumbnail.jpg "docs/thumbs/$ID.jpg"
-          git add docs/thumbs && git commit -qm "🖼️ Thumbnail $ID" && git pull -q --rebase && git push -q
-          gh issue edit "$N" --body-file work/review.md --add-label needs-review --remove-label rendering,failed
-          gh issue comment "$N" --body "👀 Ready for your review. Watch it, then add the **approved** label (or comment notes + add **redo**)."
+    uses: ./.github/workflows/finish.yml
+    with: {episode: '${{ needs.voice.outputs.id }}'}
 
   report:
     name: "🩺 Report failure"
