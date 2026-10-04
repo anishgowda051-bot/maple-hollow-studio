@@ -26,6 +26,8 @@ jobs:
         with: {name: voice, path: work, run-id: '${{ env.RUN }}', github-token: '${{ github.token }}'}
       - uses: actions/download-artifact@v4
         with: {pattern: 'chunk-*', path: work/chunks, merge-multiple: true, run-id: '${{ env.RUN }}', github-token: '${{ github.token }}'}
+      - uses: actions/setup-node@v4  # HyperFrames end card
+        with: {node-version: 22}
       - name: 📄 Read episode
         run: python3 -c "import json;e=json.load(open('episodes/$ID.json',encoding='utf-8'));print(f\"TAG={e['id']}-v{e['version']}\");print('TITLE='+e['title'])" >> "$GITHUB_ENV"
       - name: ✂️ Editing, music & quality checks

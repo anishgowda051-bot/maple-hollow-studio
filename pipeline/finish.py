@@ -2,6 +2,7 @@
 Usage: python pipeline/finish.py episodes/ep001.json work/   (expects work/chunks/*.mp4 + thumb.png, voice outputs)"""
 import glob, json, os, random, re, shutil, subprocess, sys
 import numpy as np
+from html import escape as html_escape
 sys.path.insert(0, os.path.dirname(__file__))
 from world import CAST
 
@@ -50,6 +51,24 @@ def thumbnail(src, text, dst):
     layer = layer.rotate(4, resample=Image.BICUBIC, center=(400, 150))
     img.paste(layer, (0, 0), layer)
     img.save(dst, quality=90)
+
+
+CARD_SECS = 6
+
+
+def endcard(ep, work):
+    """6s 'Today's lesson' card rendered with HyperFrames (HTML -> MP4). Never blocks an episode: returns None on failure."""
+    d = f'{work}/endcard'
+    try:
+        shutil.copytree(f'{ROOT}/cards/endcard', d, dirs_exist_ok=True)
+        shutil.copy(f'{work}/chunks/thumb.png', f'{d}/bg.png'); shutil.copy(f'{FONTS}/LuckiestGuy.ttf', d)
+        html = open(f'{d}/index.html', encoding='utf-8').read().replace('{{LESSON}}', html_escape(ep['lesson']))
+        open(f'{d}/index.html', 'w', encoding='utf-8').write(html)
+        subprocess.run(['npx', '-y', 'hyperframes@0.8.123', 'render', d, '--fps', '24', '-o', f'{work}/endcard.mp4'], check=True, timeout=900)
+        return f'{work}/endcard.mp4'
+    except Exception as e:
+        print('End card skipped:', e)
+        return None
 
 
 def qa(video, expected):
@@ -106,13 +125,18 @@ def main(ep_path, work):
     music = rng.choice(tracks) if tracks else f'{work}/music.wav'
     if not tracks: make_music(music, rng)
 
+    card = endcard(ep, work)
+    total = dur + (CARD_SECS if card else 0)
+    vf = '[0:v]scale=1920:1080:flags=lanczos,format=yuv420p,fps=24,setsar=1' + (
+        '[ep];[3:v]scale=1920:1080,format=yuv420p,fps=24,setsar=1[ec];[ep][ec]concat=n=2:v=1:a=0[v]' if card else '[v]')
     ff('-f', 'concat', '-safe', '0', '-i', f'{work}/chunks.txt', '-i', f'{work}/dialogue.wav', '-stream_loop', '-1', '-i', music,
+       *(['-i', card] if card else []),
        '-filter_complex',
-       f'[0:v]scale=1920:1080:flags=lanczos,format=yuv420p[v];[1:a]aresample=48000,asplit=2[d][sc];'
-       f'[2:a]aresample=48000,atrim=0:{dur:.2f},volume=0.35[m];[m][sc]sidechaincompress=threshold=0.02:ratio=8:attack=20:release=600[md];'
+       f'{vf};[1:a]aresample=48000,apad=whole_dur={total:.2f},asplit=2[d][sc];'
+       f'[2:a]aresample=48000,atrim=0:{total:.2f},volume=0.35[m];[m][sc]sidechaincompress=threshold=0.02:ratio=8:attack=20:release=600[md];'
        f'[d][md]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=11[a]',
        '-map', '[v]', '-map', '[a]', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-tune', 'animation',
-       '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-t', f'{dur:.2f}', '-movflags', '+faststart', f'{out}/episode.mp4')
+       '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-t', f'{total:.2f}', '-movflags', '+faststart', f'{out}/episode.mp4')
 
     s = tl['scenes'][ep.get('short_scene', 0)]
     t0, length = (s['start'] - 1) / fps, min(58, (s['end'] - s['start']) / fps)
@@ -140,7 +164,7 @@ def main(ep_path, work):
                 short_description=f"{ep['lesson']}\n\nFull episode on the channel!\n#shorts #kidscartoon #maplehollow")
     json.dump(meta, open(f'{out}/metadata.json', 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 
-    checks = qa(f'{out}/episode.mp4', dur)
+    checks = qa(f'{out}/episode.mp4', total)
     review_md(ep, checks, f'{work}/review.md')
     for k, v in checks.items(): print(('PASS ' if v else 'FAIL ') + k)
     if not all(checks.values()): sys.exit('QA failed')

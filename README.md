@@ -13,7 +13,7 @@ Everything runs on free tiers, 24/7, with your laptop off.
 | 🖋️ Writer | Claude Code routine (daily, cloud) | Writes a new episode from `bible.md`, learns from analytics, revises from your notes |
 | 🎙️ Voice actor | GitHub Actions | Kokoro open-source TTS, one voice per character, lip-sync timing, subtitles |
 | 🎬 Animators | GitHub Actions, 4 machines in parallel | Blender 4.5 builds the characters, sets and camera work and renders the episode |
-| ✂️ Editor & QA | GitHub Actions | Upscales to 1080p, mixes music + voices, loudness to YouTube spec, Short, thumbnail, quality checks |
+| ✂️ Editor & QA | GitHub Actions | Adds a HyperFrames "Today's lesson" end card (`cards/endcard/`), upscales to 1080p, mixes music + voices, loudness to YouTube spec, Short, thumbnail, quality checks |
 | 🚀 Publisher | GitHub Actions | On your **approved** label: schedules episode + Short on YouTube (made-for-kids, captions, thumbnail) |
 | 📊 Analyst | GitHub Actions (nightly) | Views, retention, subscribers → `docs/analytics.json` → dashboard + writer |
 | 🩺 Doctor | GitHub Actions | Retries any failed run once, files script errors back to the writer |
