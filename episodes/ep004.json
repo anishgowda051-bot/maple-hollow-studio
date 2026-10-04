@@ -1,0 +1,421 @@
+{
+  "id": "ep004",
+  "version": 1,
+  "title": "Luna and the Shooting Star Night | Asking for Help Is Smart",
+  "lesson": "Asking for help is not a weakness. Even the smartest friend has only two wings, and things go better together.",
+  "description": "Luna promised to show all her friends a shooting star, but she has a secret: she has read forty books about stars and never used a telescope! Will she keep pretending, or be brave enough to ask for help? A funny starry adventure about asking for help and teamwork.",
+  "tags": [
+    "kids cartoon",
+    "stories for kids",
+    "3d animation for kids",
+    "asking for help",
+    "shooting stars for kids",
+    "moral stories for kids",
+    "cartoon for kids",
+    "kids animation",
+    "maple hollow",
+    "life lessons for kids"
+  ],
+  "thumbnail_text": "TOO MUCH!",
+  "thumbnail_line": [
+    0,
+    1
+  ],
+  "short_scene": 1,
+  "scenes": [
+    {
+      "title": "The Book Avalanche",
+      "setting": "village",
+      "time": "day",
+      "characters": [
+        "luna",
+        "milo"
+      ],
+      "props": [
+        "house@back",
+        "book@front",
+        "telescope@left",
+        "map@right"
+      ],
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "CRASH! Somewhere under a giant pile of books, maps and one very shiny telescope... was Luna."
+        },
+        {
+          "who": "luna",
+          "text": "I'm fine! Everything is under control! Mostly! Can someone find my left wing?",
+          "action": "surprised",
+          "emotion": "surprised"
+        },
+        {
+          "who": "milo",
+          "text": "Luna! Whoa. Are you building a fort out of books?",
+          "action": "jump",
+          "emotion": "surprised"
+        },
+        {
+          "who": "luna",
+          "text": "No! Tonight is the Star Shower. I promised everyone I would show them a shooting star.",
+          "action": "point",
+          "emotion": "excited"
+        },
+        {
+          "who": "luna",
+          "text": "I have forty books about stars. I am the star expert of Maple Hollow. I can do it all by myself!",
+          "emotion": "proud"
+        },
+        {
+          "who": "milo",
+          "text": "Cool! Can I help carry something? Anything? This book is bigger than me.",
+          "action": "shrug",
+          "emotion": "happy"
+        },
+        {
+          "who": "luna",
+          "text": "No thank you! Experts don't need help. Probably. I read that somewhere. I think.",
+          "action": "shake",
+          "emotion": "worried"
+        }
+      ]
+    },
+    {
+      "title": "The Very Tiny Robot",
+      "setting": "meadow",
+      "time": "day",
+      "characters": [
+        "pepper",
+        "luna",
+        "bolt"
+      ],
+      "props": [
+        "telescope@center",
+        "bush@left"
+      ],
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "In the meadow, Luna tried her new telescope for the very first time. A telescope makes faraway things look close."
+        },
+        {
+          "who": "luna",
+          "text": "Easy. I just look in here and... Bolt! Why are you so tiny? And so far away?",
+          "action": "surprised",
+          "emotion": "surprised"
+        },
+        {
+          "who": "bolt",
+          "text": "I am not far away. I am right here. Distance to Luna: one wing.",
+          "action": "wave",
+          "emotion": "neutral"
+        },
+        {
+          "who": "pepper",
+          "text": "Luna, you're looking in the wrong end! Ha! Even I know that. And I've never read a book about telescopes.",
+          "action": "laugh",
+          "emotion": "silly"
+        },
+        {
+          "who": "luna",
+          "text": "I knew that. I was... testing the wrong end. For science.",
+          "action": "shrug",
+          "emotion": "worried"
+        },
+        {
+          "who": "bolt",
+          "text": "Do you want help? I have a plan. Plan one: I read the instructions out loud. Very loud.",
+          "action": "point",
+          "emotion": "happy"
+        },
+        {
+          "who": "pepper",
+          "text": "And I can carry everything up Lookout Hill! I bet I can do it in ten seconds. On three!",
+          "action": "jump",
+          "emotion": "excited"
+        },
+        {
+          "who": "luna",
+          "text": "No, no! I've got it. Really. You two just come tonight and be amazed.",
+          "action": "shake",
+          "emotion": "worried"
+        },
+        {
+          "who": "bolt",
+          "text": "Chance that Luna has got it: forty-one percent. And falling.",
+          "action": "think",
+          "emotion": "thinking"
+        }
+      ]
+    },
+    {
+      "title": "The Wobbly Tower",
+      "setting": "forest",
+      "time": "sunset",
+      "characters": [
+        "luna",
+        "grandpa"
+      ],
+      "props": [
+        "tree@left",
+        "tree@right",
+        "tent@front",
+        "lantern@center"
+      ],
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "At sunset, Luna started up the forest path. She carried the telescope, the tent, the lantern, and nine books."
+        },
+        {
+          "who": "luna",
+          "text": "Wobble. Wobble. Whoa! Okay. Step one says: attach part A to part A-and-a-half. What is part A-and-a-half?",
+          "action": "think",
+          "emotion": "worried"
+        },
+        {
+          "who": "grandpa",
+          "text": "Well, hello, Luna! I'm walking to the hill too. I started after lunch. Nearly there!",
+          "action": "wave",
+          "emotion": "happy"
+        },
+        {
+          "who": "luna",
+          "text": "Grandpa, can I tell you a secret? I've read forty books about stars. But I've never actually used a telescope.",
+          "action": "sad",
+          "emotion": "sad"
+        },
+        {
+          "who": "luna",
+          "text": "If I ask for help, everyone will think I'm not smart.",
+          "emotion": "worried"
+        },
+        {
+          "who": "grandpa",
+          "text": "Ha! A hundred years ago, I carried a giant watermelon up this hill. All by myself. It took me three days.",
+          "action": "laugh",
+          "emotion": "happy"
+        },
+        {
+          "who": "grandpa",
+          "text": "At the top, my friend was waiting with a wheelbarrow. He said, I had it the whole time! You never asked!",
+          "action": "shrug",
+          "emotion": "silly"
+        },
+        {
+          "who": "luna",
+          "text": "Three days? For one watermelon?",
+          "action": "laugh",
+          "emotion": "happy"
+        },
+        {
+          "who": "grandpa",
+          "text": "And it was a little squashed by then. Remember, Luna. Even the smartest owl has only two wings.",
+          "action": "nod",
+          "emotion": "proud"
+        }
+      ]
+    },
+    {
+      "title": "The Brave Question",
+      "setting": "mountains",
+      "time": "sunset",
+      "characters": [
+        "milo",
+        "pepper",
+        "luna",
+        "bolt"
+      ],
+      "props": [
+        "rock@left",
+        "tent@right",
+        "telescope@center"
+      ],
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "At the top of Lookout Hill, the friends were waiting. Luna took a deep breath."
+        },
+        {
+          "who": "luna",
+          "text": "Everyone? I need to tell you something. I don't know how to set up the telescope. Can you please help me?",
+          "emotion": "worried"
+        },
+        {
+          "who": "milo",
+          "text": "Of course! I've been waiting all day for you to ask!",
+          "action": "cheer",
+          "emotion": "excited"
+        },
+        {
+          "who": "bolt",
+          "text": "Asking for help detected. New skill unlocked. Beep boop!",
+          "action": "spin",
+          "emotion": "happy"
+        },
+        {
+          "who": "pepper",
+          "text": "Okay, team! I'll set up the tent. Milo, hold the legs. Bolt, read the steps. On three!",
+          "action": "point",
+          "emotion": "excited"
+        },
+        {
+          "who": "bolt",
+          "text": "STEP ONE! ATTACH PART A TO PART A-AND-A-HALF!",
+          "action": "point",
+          "emotion": "excited"
+        },
+        {
+          "who": "luna",
+          "text": "Bolt, you don't have to read it that loud. Oh! Wait! Part A-and-a-half is this little screw!",
+          "action": "laugh",
+          "emotion": "happy"
+        },
+        {
+          "who": "narrator",
+          "text": "Click. Twist. Click. Four friends finished in four minutes. Luna alone had needed forty."
+        },
+        {
+          "who": "luna",
+          "text": "We did it! And I didn't drop a single book. Well, only two.",
+          "action": "jump",
+          "emotion": "proud"
+        }
+      ]
+    },
+    {
+      "title": "Look Up!",
+      "setting": "mountains",
+      "time": "night",
+      "characters": [
+        "grandpa",
+        "milo",
+        "luna",
+        "pepper",
+        "bolt"
+      ],
+      "props": [
+        "telescope@center",
+        "lantern@front",
+        "tent@right"
+      ],
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "Night came. Grandpa Shell had arrived too, of course. Star watching is a friends-and-grown-ups job."
+        },
+        {
+          "who": "milo",
+          "text": "My turn! I see... one star. Just one star. It's not moving at all.",
+          "action": "think",
+          "emotion": "thinking"
+        },
+        {
+          "who": "pepper",
+          "text": "WHOOSH! There goes one! Over there! And another one! Behind you, Milo!",
+          "action": "jump",
+          "emotion": "excited"
+        },
+        {
+          "who": "milo",
+          "text": "What? Where? I missed it! The telescope only shows a tiny piece of sky!",
+          "action": "surprised",
+          "emotion": "surprised"
+        },
+        {
+          "who": "grandpa",
+          "text": "Hmm. When I was young, I watched a shooting star night through a pipe. Saw nothing. Very nice pipe, though.",
+          "action": "nod",
+          "emotion": "silly"
+        },
+        {
+          "who": "luna",
+          "text": "That's it! I read about this! Shooting stars fly across the whole sky. The best way to see them is with just your eyes!",
+          "action": "point",
+          "emotion": "excited"
+        },
+        {
+          "who": "luna",
+          "text": "And they aren't really stars. They're tiny bits of space dust, some as small as sand, burning up high in the air.",
+          "emotion": "happy"
+        },
+        {
+          "who": "bolt",
+          "text": "So we carried a telescope up a hill... to not use it?",
+          "action": "think",
+          "emotion": "thinking"
+        },
+        {
+          "who": "luna",
+          "text": "We can use it for the Moon! But first, everyone lie down and look up!",
+          "action": "laugh",
+          "emotion": "happy"
+        },
+        {
+          "who": "narrator",
+          "text": "WHOOSH. WHOOSH. Shooting stars zipped across the sky, one after another.",
+          "everyone": "cheer",
+          "emotion": "excited"
+        }
+      ]
+    },
+    {
+      "title": "Forty-Seven Wishes",
+      "setting": "mountains",
+      "time": "night",
+      "characters": [
+        "grandpa",
+        "milo",
+        "luna",
+        "pepper",
+        "bolt"
+      ],
+      "props": [
+        "telescope@center",
+        "lantern@front"
+      ],
+      "lines": [
+        {
+          "who": "luna",
+          "text": "Thank you, everyone. I couldn't do this alone. Asking for help was scary. But it was the smartest thing I did all day.",
+          "emotion": "proud"
+        },
+        {
+          "who": "grandpa",
+          "text": "And nobody had to carry a watermelon for three days.",
+          "action": "nod",
+          "emotion": "happy"
+        },
+        {
+          "who": "pepper",
+          "text": "I counted forty-eight shooting stars! How many did you count, Bolt?",
+          "action": "jump",
+          "emotion": "excited"
+        },
+        {
+          "who": "bolt",
+          "text": "Forty-seven. Pepper wins. Plan two: I ask Pepper for help counting next time.",
+          "action": "nod",
+          "emotion": "happy"
+        },
+        {
+          "who": "pepper",
+          "text": "Yes! I win! Wait... was that a race?",
+          "action": "cheer",
+          "emotion": "silly"
+        },
+        {
+          "who": "milo",
+          "text": "With you, Pepper, everything is a race!",
+          "action": "laugh",
+          "emotion": "happy"
+        },
+        {
+          "who": "narrator",
+          "text": "Asking for help doesn't make you less smart. It lets your friends shine too. See you next time in Maple Hollow!",
+          "everyone": "wave",
+          "emotion": "happy"
+        }
+      ]
+    }
+  ]
+}
